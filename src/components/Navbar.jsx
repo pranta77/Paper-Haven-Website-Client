@@ -1,7 +1,6 @@
 
 "use client";
 
-
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
@@ -49,7 +48,7 @@ const Navbar = () => {
     <div className="navbar bg-base-100 shadow-sm px-4 lg:px-10">
       {/* Logo */}
       <div className="navbar-start">
-        <Link href="/" className="text-2xl font-bold text-primary">
+        <Link href="/" className="text-2xl font-bold text-">
           📚 Paper Haven
         </Link>
       </div>
