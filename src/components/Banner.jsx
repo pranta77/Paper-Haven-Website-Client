@@ -78,7 +78,7 @@ const Banner = () => {
                   </p>
 
                   <Link
-                    href="/books"
+                    href="/all-books"
                     className="btn bg-[#D6A85F] hover:bg-[#E5BB79] border-none text-[#1F2933] rounded-full px-8 font-bold"
                   >
                     Browse Books
