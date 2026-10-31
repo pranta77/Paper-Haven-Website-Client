@@ -25,7 +25,7 @@ const Navbar = () => {
         </Link>
       </li>
       <li>
-        <Link href="/books" className="rounded-xl px-4 py-2 transition-all hover:bg-[#285943] hover:text-white">
+        <Link href="/all-books" className="rounded-xl px-4 py-2 transition-all hover:bg-[#285943] hover:text-white">
           All Books
         </Link>
       </li>
