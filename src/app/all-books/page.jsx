@@ -12,10 +12,10 @@ const AllBooksPage = async () => {
   }
 
   const data = await res.json();
-  console.log(data);
+  // console.log(data);
   
   const books = data.books || [];
-  console.log(books);
+  // console.log(books);
   
 
   return (

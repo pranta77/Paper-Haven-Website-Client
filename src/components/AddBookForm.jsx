@@ -1,10 +1,10 @@
-
 "use client";
 
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import Image from "next/image";
 
 const categories = ["Fiction", "Science", "History", "Kids", "Others"];
 
@@ -21,6 +21,7 @@ const AddBookForm = () => {
     category: "",
     image: "",
     description: "",
+    totalCopies: 1,
   });
 
   const handleChange = (e) => {
@@ -47,8 +48,7 @@ const AddBookForm = () => {
         userEmail: user.email,
         ownerId: user.id,
       };
-    //   console.log(bookData);
-      
+      //   console.log(bookData);
 
       const response = await fetch("http://localhost:8000/add-book", {
         method: "POST",
@@ -59,8 +59,7 @@ const AddBookForm = () => {
       });
 
       const result = await response.json();
-    //   console.log(result);
-      
+      //   console.log(result);
 
       if (!response.ok || !result.success) {
         throw new Error(result.message || "Failed to add book");
@@ -87,20 +86,14 @@ const AddBookForm = () => {
   };
 
   if (!user) {
-    return (
-      <p className="text-center py-16">
-        Please sign in to add a book.
-      </p>
-    );
+    return <p className="text-center py-16">Please sign in to add a book.</p>;
   }
 
   return (
     <div className="max-w-2xl mx-auto">
       <div className="bg-white rounded-2xl shadow-lg border border-[#285943]/10 p-6 md:p-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-[#285943]">
-            Add a New Book
-          </h1>
+          <h1 className="text-3xl font-bold text-[#285943]">Add a New Book</h1>
           <p className="text-gray-500 mt-2">
             Share your favorite books with the Paper Haven community.
           </p>
@@ -166,9 +159,11 @@ const AddBookForm = () => {
             />
 
             {formData.image && (
-              <img
+              <Image
                 src={formData.image}
                 alt="Book preview"
+                width={500}
+                height={400}
                 className="mt-4 w-32 h-40 object-cover rounded-lg border"
                 onError={(e) => {
                   e.currentTarget.style.display = "none";
@@ -181,9 +176,7 @@ const AddBookForm = () => {
           </div>
 
           <div>
-            <label className="label font-semibold">
-              Short Description
-            </label>
+            <label className="label font-semibold">Short Description</label>
             <textarea
               name="description"
               value={formData.description}

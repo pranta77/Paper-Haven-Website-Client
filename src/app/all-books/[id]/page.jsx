@@ -1,4 +1,4 @@
-
+import BorrowButton from "@/components/BorrowButton";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,9 +12,7 @@ const BooksDetailPage = async ({ params }) => {
   if (!res.ok) {
     return (
       <div className="text-center py-20">
-        <h2 className="text-2xl font-bold text-[#285943]">
-          Book Not Found
-        </h2>
+        <h2 className="text-2xl font-bold text-[#285943]">Book Not Found</h2>
         <Link href="/all-books" className="btn mt-4 bg-[#285943] text-white">
           Back to Books
         </Link>
@@ -36,6 +34,7 @@ const BooksDetailPage = async ({ params }) => {
               className="w-full h-112.5 object-cover rounded-xl"
               width={500}
               height={400}
+              preload
             />
           </div>
 
@@ -45,19 +44,13 @@ const BooksDetailPage = async ({ params }) => {
               {book.category}
             </span>
 
-            <h1 className="text-3xl font-bold text-[#285943]">
-              {book.title}
-            </h1>
+            <h1 className="text-3xl font-bold text-[#285943]">{book.title}</h1>
 
-            <p className="text-gray-500 mt-2">
-              By {book.author}
-            </p>
+            <p className="text-gray-500 mt-2">By {book.author}</p>
 
             <div className="divider"></div>
 
-            <h2 className="text-lg font-bold text-[#285943]">
-              Description
-            </h2>
+            <h2 className="text-lg font-bold text-[#285943]">Description</h2>
 
             <p className="text-gray-600 leading-relaxed mt-2">
               {book.description}
@@ -65,26 +58,15 @@ const BooksDetailPage = async ({ params }) => {
 
             {/* Added By */}
             <div className="bg-[#F7F4EA] rounded-xl p-4 mt-6">
-              <h3 className="font-semibold text-[#285943]">
-                Added By
-              </h3>
+              <h3 className="font-semibold text-[#285943]">Added By</h3>
 
-              <p className="text-gray-700 mt-1">
-                {book.userName}
-              </p>
+              <p className="text-gray-700 mt-1">{book.userName}</p>
 
-              <p className="text-gray-500 text-sm">
-                {book.userEmail}
-              </p>
+              <p className="text-gray-500 text-sm">{book.userEmail}</p>
             </div>
 
             {/* Borrow Button */}
-            <button
-              className="btn mt-6 bg-[#285943] hover:bg-[#1f4433] text-white border-none"
-              disabled
-            >
-              Borrow This Book
-            </button>
+            <BorrowButton bookId={book._id} totalCopies={book.totalCopies} />
 
             <Link
               href="/all-books"
