@@ -44,7 +44,7 @@ const AllBooksPage = async () => {
                 <Image
                   src={book.image}
                   alt={book.title}
-                  className="w-full h-72 object-cover"
+                  className="w-full h-130 object-cover"
                   width={500}
                   height={400}
                 />

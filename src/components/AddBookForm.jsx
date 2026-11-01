@@ -22,6 +22,7 @@ const AddBookForm = () => {
     category: "",
     image: "",
     description: "",
+    totalCopies: 1,
   });
 
   const handleChange = (e) => {
@@ -33,8 +34,7 @@ const AddBookForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = await getTokenFromClient()
-    
+    const token = await getTokenFromClient();
 
     if (!user) {
       toast.error("Please sign in first");
@@ -46,23 +46,22 @@ const AddBookForm = () => {
 
       const bookData = {
         ...formData,
+        totalCopies: Number(formData.totalCopies),
         userName: user.name,
         userEmail: user.email,
         ownerId: user.id,
       };
-      //   console.log(bookData);
 
       const response = await fetch("http://localhost:8000/add-book", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          authorization:`Bearer ${token}`
+          authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(bookData),
       });
 
       const result = await response.json();
-      //   console.log(result);
 
       if (!response.ok || !result.success) {
         throw new Error(result.message || "Failed to add book");
@@ -76,6 +75,7 @@ const AddBookForm = () => {
         category: "",
         image: "",
         description: "",
+        totalCopies: 1,
       });
 
       router.push("/my-books");
@@ -186,6 +186,26 @@ const AddBookForm = () => {
               onChange={handleChange}
               placeholder="Write a short description..."
               className="textarea textarea-bordered w-full min-h-28"
+              required
+            />
+          </div>
+
+          {/* Total Copies */}
+          <div>
+            <label className="label font-semibold">Total Copies</label>
+            <input
+              type="number"
+              name="totalCopies"
+              min="1"
+              value={formData.totalCopies}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  totalCopies: Number(e.target.value),
+                })
+              }
+              placeholder="Enter total copies"
+              className="input input-bordered w-full"
               required
             />
           </div>
