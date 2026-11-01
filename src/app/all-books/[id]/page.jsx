@@ -1,12 +1,21 @@
 import BorrowButton from "@/components/BorrowButton";
+import { auth } from "@/lib/auth";
+import { getTokenFromServer } from "@/lib/getTokenFromServer";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
 const BooksDetailPage = async ({ params }) => {
   const { id } = await params;
 
+  const token = await getTokenFromServer()
+  
+
   const res = await fetch(`http://localhost:8000/all-books/${id}`, {
     cache: "no-store",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
   });
 
   if (!res.ok) {
@@ -66,7 +75,7 @@ const BooksDetailPage = async ({ params }) => {
             </div>
 
             {/* Borrow Button */}
-            <BorrowButton bookId={book._id} totalCopies={book.totalCopies} />
+            <BorrowButton bookId={book._id} />
 
             <Link
               href="/all-books"

@@ -5,6 +5,7 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Image from "next/image";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const categories = ["Fiction", "Science", "History", "Kids", "Others"];
 
@@ -21,7 +22,6 @@ const AddBookForm = () => {
     category: "",
     image: "",
     description: "",
-    totalCopies: 1,
   });
 
   const handleChange = (e) => {
@@ -33,6 +33,8 @@ const AddBookForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = await getTokenFromClient()
+    
 
     if (!user) {
       toast.error("Please sign in first");
@@ -54,6 +56,7 @@ const AddBookForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          authorization:`Bearer ${token}`
         },
         body: JSON.stringify(bookData),
       });

@@ -1,10 +1,10 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import Image from "next/image";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const MyBooksPage = () => {
   const { data: session, isPending } = authClient.useSession();
@@ -35,9 +35,7 @@ const MyBooksPage = () => {
 
     const getBooks = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:8000/my-books/${user.id}`
-        );
+        const res = await fetch(`http://localhost:8000/my-books/${user.id}`);
 
         if (!res.ok) throw new Error("Failed to fetch books");
 
@@ -70,6 +68,7 @@ const MyBooksPage = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     setSaving(true);
+    const token = await getTokenFromClient();
 
     try {
       const res = await fetch(
@@ -78,12 +77,13 @@ const MyBooksPage = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             ...formData,
             ownerId: user.id,
           }),
-        }
+        },
       );
 
       const data = await res.json();
@@ -92,10 +92,8 @@ const MyBooksPage = () => {
 
       setBooks((previousBooks) =>
         previousBooks.map((book) =>
-          book._id === editingBook._id
-            ? { ...book, ...formData }
-            : book
-        )
+          book._id === editingBook._id ? { ...book, ...formData } : book,
+        ),
       );
 
       setEditingBook(null);
@@ -118,7 +116,7 @@ const MyBooksPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ ownerId: user.id }),
-        }
+        },
       );
 
       const data = await res.json();
@@ -126,7 +124,7 @@ const MyBooksPage = () => {
       if (!res.ok) throw new Error(data.message);
 
       setBooks((previousBooks) =>
-        previousBooks.filter((book) => book._id !== deletingBook._id)
+        previousBooks.filter((book) => book._id !== deletingBook._id),
       );
 
       setDeletingBook(null);
@@ -158,12 +156,8 @@ const MyBooksPage = () => {
     <main className="min-h-screen bg-[#F7F4EA] px-4 py-12">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#285943]">
-            My Books
-          </h1>
-          <p className="text-gray-500 mt-2">
-            Manage the books you have added.
-          </p>
+          <h1 className="text-3xl font-bold text-[#285943]">My Books</h1>
+          <p className="text-gray-500 mt-2">Manage the books you have added.</p>
         </div>
 
         {books.length === 0 ? (
@@ -196,9 +190,7 @@ const MyBooksPage = () => {
                     {book.title}
                   </h2>
 
-                  <p className="text-gray-500 mt-1">
-                    By {book.author}
-                  </p>
+                  <p className="text-gray-500 mt-1">By {book.author}</p>
 
                   <div className="flex gap-3 mt-5">
                     <button
@@ -321,9 +313,7 @@ const MyBooksPage = () => {
       {deletingBook && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
           <div className="bg-white rounded-2xl p-6 w-full max-w-sm text-center">
-            <h2 className="text-xl font-bold text-[#285943]">
-              Delete Book?
-            </h2>
+            <h2 className="text-xl font-bold text-[#285943]">Delete Book?</h2>
 
             <p className="text-gray-500 mt-3">
               Are you sure you want to delete {deletingBook.title}?
