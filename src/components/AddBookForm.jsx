@@ -52,14 +52,17 @@ const AddBookForm = () => {
         ownerId: user.id,
       };
 
-      const response = await fetch("http://localhost:8000/add-book", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/add-book`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(bookData),
         },
-        body: JSON.stringify(bookData),
-      });
+      );
 
       const result = await response.json();
 
@@ -249,5 +252,4 @@ const AddBookForm = () => {
     </div>
   );
 };
-
 export default AddBookForm;

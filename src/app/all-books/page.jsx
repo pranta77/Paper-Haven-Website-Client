@@ -1,9 +1,8 @@
-
 import Image from "next/image";
 import Link from "next/link";
 
 const AllBooksPage = async () => {
-  const res = await fetch("http://localhost:8000/all-books", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/all-books`, {
     cache: "no-store",
   });
 
@@ -13,10 +12,9 @@ const AllBooksPage = async () => {
 
   const data = await res.json();
   // console.log(data);
-  
+
   const books = data.books || [];
   // console.log(books);
-  
 
   return (
     <main className="min-h-screen bg-[#F7F4EA] px-4 py-12">
@@ -58,9 +56,7 @@ const AllBooksPage = async () => {
                     {book.title}
                   </h2>
 
-                  <p className="text-gray-500 mt-2">
-                    By {book.author}
-                  </p>
+                  <p className="text-gray-500 mt-2">By {book.author}</p>
 
                   <Link
                     href={`/all-books/${book._id.toString()}`}

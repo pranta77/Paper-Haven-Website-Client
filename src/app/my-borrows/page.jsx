@@ -24,7 +24,7 @@ const MyBorrowsPage = () => {
     const fetchBorrows = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8000/my-borrows/${encodeURIComponent(user.email)}`
+          `${process.env.NEXT_PUBLIC_API_URL}/my-borrows/${encodeURIComponent(user.email)}`,
         );
 
         const data = await res.json();
@@ -47,15 +47,18 @@ const MyBorrowsPage = () => {
 
   const handleReturn = async (id) => {
     try {
-      const res = await fetch(`http://localhost:8000/my-borrows/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/my-borrows/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userEmail: user.email,
+          }),
         },
-        body: JSON.stringify({
-          userEmail: user.email,
-        }),
-      });
+      );
 
       const data = await res.json();
 
@@ -64,9 +67,7 @@ const MyBorrowsPage = () => {
         return;
       }
 
-      setBorrows((previous) =>
-        previous.filter((borrow) => borrow._id !== id)
-      );
+      setBorrows((previous) => previous.filter((borrow) => borrow._id !== id));
 
       toast.success("Book returned successfully!");
     } catch (error) {
@@ -92,9 +93,7 @@ const MyBorrowsPage = () => {
   if (!user) {
     return (
       <main className="min-h-screen bg-[#F7F4EA] flex flex-col items-center justify-center">
-        <h2 className="text-2xl font-bold text-[#285943]">
-          Please Sign In
-        </h2>
+        <h2 className="text-2xl font-bold text-[#285943]">Please Sign In</h2>
         <Link href="/signIn" className="btn mt-4 bg-[#285943] text-white">
           Sign In
         </Link>

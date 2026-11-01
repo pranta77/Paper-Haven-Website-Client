@@ -15,16 +15,19 @@ const BorrowButton = ({ bookId }) => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:8000/borrow-book", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/borrow-book`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            bookId,
+            userEmail: user.email,
+          }),
         },
-        body: JSON.stringify({
-          bookId,
-          userEmail: user.email,
-        }),
-      });
+      );
 
       const data = await res.json();
 

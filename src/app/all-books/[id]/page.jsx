@@ -8,15 +8,17 @@ import Link from "next/link";
 const BooksDetailPage = async ({ params }) => {
   const { id } = await params;
 
-  const token = await getTokenFromServer()
-  
+  const token = await getTokenFromServer();
 
-  const res = await fetch(`http://localhost:8000/all-books/${id}`, {
-    cache: "no-store",
-    headers: {
-      authorization: `Bearer ${token}`,
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/all-books/${id}`,
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   if (!res.ok) {
     return (

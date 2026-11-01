@@ -35,7 +35,9 @@ const MyBooksPage = () => {
 
     const getBooks = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/my-books/${user.id}`);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/my-books/${user.id}`,
+        );
 
         if (!res.ok) throw new Error("Failed to fetch books");
 
@@ -72,7 +74,7 @@ const MyBooksPage = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:8000/my-books/${editingBook._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/my-books/${editingBook._id}`,
         {
           method: "PUT",
           headers: {
@@ -109,7 +111,7 @@ const MyBooksPage = () => {
   const handleDelete = async () => {
     try {
       const res = await fetch(
-        `http://localhost:8000/my-books/${deletingBook._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/my-books/${deletingBook._id}`,
         {
           method: "DELETE",
           headers: {
