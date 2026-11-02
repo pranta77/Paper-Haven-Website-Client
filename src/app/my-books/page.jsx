@@ -70,6 +70,7 @@ const MyBooksPage = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     setSaving(true);
+    // JWT TOKEN
     const token = await getTokenFromClient();
 
     try {

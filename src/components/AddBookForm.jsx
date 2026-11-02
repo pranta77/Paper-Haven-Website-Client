@@ -34,7 +34,15 @@ const AddBookForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // JWT TOKEN
     const token = await getTokenFromClient();
+    if (
+      !Number.isInteger(Number(formData.totalCopies)) ||
+      Number(formData.totalCopies) < 1
+    ) {
+      toast.error("Total copies must be at least 1");
+      return;
+    }
 
     if (!user) {
       toast.error("Please sign in first");

@@ -4,8 +4,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  Instagram,
-  Github,
   ArrowUpRight,
 } from "lucide-react";
 import { FaFacebook, FaGithub, FaInstagram } from "react-icons/fa";
@@ -53,7 +51,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/books"
+                  href="/all-books"
                   className="hover:text-[#D6A85F] transition-colors"
                 >
                   All Books

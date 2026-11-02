@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -62,7 +61,6 @@ const Banner = () => {
               <div className="absolute -right-10 -bottom-32 w-96 h-96 rounded-full border border-white/10" />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full relative z-10">
-
                 {/* Text Content */}
                 <div className="text-white space-y-5 text-center md:text-left">
                   <span className="inline-block text-xs md:text-sm tracking-[3px] font-semibold text-[#D6A85F]">
@@ -108,46 +106,11 @@ const Banner = () => {
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-
-      {/* Custom Swiper Styling */}
-      {/* <style jsx global>{`
-        .paperhaven-slider .swiper-button-next,
-        .paperhaven-slider .swiper-button-prev {
-          color: #d6a85f;
-          background: rgba(255, 255, 255, 0.15);
-          width: 42px;
-          height: 42px;
-          border-radius: 50%;
-        }
-
-        .paperhaven-slider .swiper-button-next::after,
-        .paperhaven-slider .swiper-button-prev::after {
-          font-size: 16px;
-          font-weight: bold;
-        }
-
-        .paperhaven-slider .swiper-pagination-bullet {
-          background: white;
-          opacity: 0.5;
-        }
-
-        .paperhaven-slider .swiper-pagination-bullet-active {
-          background: #d6a85f;
-          opacity: 1;
-          width: 24px;
-          border-radius: 10px;
-        }
-
-        .paperhaven-slider .swiper-pagination {
-          bottom: 18px;
-        }
-      `}</style> */}
     </section>
   );
 };

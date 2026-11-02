@@ -1,4 +1,3 @@
-
 import { Search, BookOpen, RotateCcw } from "lucide-react";
 
 const steps = [
@@ -28,7 +27,6 @@ const steps = [
 const HowItWorks = () => {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-
       {/* Section Heading */}
       <div className="text-center mb-14">
         <p className="text-[#D6A85F] font-semibold tracking-widest text-sm uppercase">
@@ -40,8 +38,8 @@ const HowItWorks = () => {
         </h2>
 
         <p className="text-gray-500 mt-4 max-w-xl mx-auto leading-7">
-          Getting your favorite book is easier than ever.
-          Just follow these three simple steps and start reading!
+          Getting your favorite book is easier than ever. Just follow these
+          three simple steps and start reading!
         </p>
       </div>
 
@@ -76,7 +74,6 @@ const HowItWorks = () => {
           );
         })}
       </div>
-
     </section>
   );
 };

@@ -1,13 +1,11 @@
 import BorrowButton from "@/components/BorrowButton";
-import { auth } from "@/lib/auth";
 import { getTokenFromServer } from "@/lib/getTokenFromServer";
-import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
 const BooksDetailPage = async ({ params }) => {
   const { id } = await params;
-
+  // JWT TOKEN
   const token = await getTokenFromServer();
 
   const res = await fetch(
@@ -32,6 +30,8 @@ const BooksDetailPage = async ({ params }) => {
   }
 
   const book = await res.json();
+  console.log(book);
+  
 
   return (
     <main className="min-h-screen bg-[#F7F4EA] px-4 py-12">
@@ -77,7 +77,13 @@ const BooksDetailPage = async ({ params }) => {
             </div>
 
             {/* Borrow Button */}
-            <BorrowButton bookId={book._id} />
+            <BorrowButton bookId={book._id} totalCopies={book.totalCopies} />
+            <p className="mt-3 text-gray-600">
+              Available Copies:{" "}
+              <span className="font-bold text-[#285943]">
+                {book.totalCopies}
+              </span>
+            </p>
 
             <Link
               href="/all-books"
